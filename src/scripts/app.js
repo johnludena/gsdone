@@ -1,15 +1,22 @@
-const React = require('react'),
-	ReactDOM = require('react-dom')
+import ReactDOM from 'react-dom'
+import React from 'react'
+import Backbone from 'backbone'
+import TodoMainView from './TodoMainView'
+
 
 const app = function() {
 
-	const Header = React.createClass({
-		render: () => {
-			return <h1>YOLO</h1>
-		}
-	})
+    const TodoModel = Backbone.Model.extend({ 
+        defaults: { 
+            status: 'pending'
+        }
+    })
 
-	ReactDOM.render(<Header/>,document.querySelector('.container'))
+    const TodoCollection = Backbone.Collection.extend({ 
+        model: TodoModel 
+    })
+
+	ReactDOM.render(<TodoMainView todoColl={new TodoCollection()} />, document.querySelector('.container'))
 }
 
 app()
